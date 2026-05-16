@@ -10,7 +10,8 @@ export function loadTodos(): Todo[] {
     const raw = readFileSync(DATA_FILE, "utf-8").trim();
     if (!raw) return [];
     return JSON.parse(raw) as Todo[];
-  } catch {
+  } catch (e) {
+    if ((e as NodeJS.ErrnoException).code !== 'ENOENT') throw e;
     return [];
   }
 }
