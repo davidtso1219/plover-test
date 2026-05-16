@@ -5,9 +5,9 @@ export type Todo = { id: number; text: string };
 
 const DATA_FILE = join(import.meta.dir, "..", "todos.json");
 
-export function loadTodos(): Todo[] {
+export function loadTodos(filePath: string = DATA_FILE): Todo[] {
   try {
-    const raw = readFileSync(DATA_FILE, "utf-8").trim();
+    const raw = readFileSync(filePath, "utf-8").trim();
     if (!raw) return [];
     return JSON.parse(raw) as Todo[];
   } catch (e) {
@@ -16,8 +16,8 @@ export function loadTodos(): Todo[] {
   }
 }
 
-export function saveTodos(todos: Todo[]): void {
-  writeFileSync(DATA_FILE, JSON.stringify(todos, null, 2));
+export function saveTodos(todos: Todo[], filePath: string = DATA_FILE): void {
+  writeFileSync(filePath, JSON.stringify(todos, null, 2));
 }
 
 export function nextId(todos: Todo[]): number {
