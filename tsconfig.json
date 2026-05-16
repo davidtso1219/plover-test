@@ -4,7 +4,6 @@
     "target": "ESNext",
     "module": "Bundler",
     "moduleDetection": "force",
-    "jsx": "react-jsx",
     "allowImportingTsExtensions": true,
     "moduleResolution": "bundler",
     "types": ["bun-types"],
