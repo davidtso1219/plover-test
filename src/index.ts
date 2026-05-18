@@ -21,6 +21,11 @@ switch (command) {
     }
     break;
   }
+  case "count": {
+    const todos = loadTodos();
+    console.log(todos.length);
+    break;
+  }
   case "done": {
     const id = Number(args[0]);
     if (!args[0] || isNaN(id)) {
