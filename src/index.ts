@@ -21,6 +21,11 @@ switch (command) {
     }
     break;
   }
+  case "count": {
+    const todos = loadTodos();
+    console.log(todos.length);
+    break;
+  }
   case "done": {
     const id = Number(args[0]);
     if (!args[0] || isNaN(id)) {
@@ -35,11 +40,6 @@ switch (command) {
     }
     todos.splice(idx, 1);
     saveTodos(todos);
-    break;
-  }
-  case "count": {
-    const todos = loadTodos();
-    process.stdout.write(`${todos.length}\n`);
     break;
   }
   default: {
