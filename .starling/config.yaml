@@ -1,0 +1,74 @@
+# Plover-Baby agent team — declarative config consumed by @starling/client.
+# Edit prompts in prompts/<name>.md. Register with:  bunx starling register
+project: plover-baby
+
+workflows:
+  - name: lead-plan
+    triggers:
+      - on: github:issue_comment:created
+        when:
+          comment.body:
+            contains: /plan
+    steps:
+      - name: plan
+        prompt: prompts/lead-plan.md
+        allowed_tools: [Bash, Read]
+
+  - name: swe-implement
+    triggers:
+      - on: github:issue_comment:created
+        when:
+          comment.body:
+            contains: /swe-implement
+    steps:
+      - name: implement
+        prompt: prompts/swe-implement.md
+        allowed_tools: [Bash, Read, Write, Edit, Glob, Grep]
+
+  - name: lead-review-pr
+    triggers:
+      - on: github:issue_comment:created
+        when:
+          comment.body:
+            contains: /lead-review
+    steps:
+      - name: review
+        prompt: prompts/lead-review-pr.md
+        allowed_tools: [Bash, Read]
+
+  - name: qa-test
+    triggers:
+      - on: github:issue_comment:created
+        when:
+          comment.body:
+            contains: /qa-test
+    steps:
+      - name: test
+        prompt: prompts/qa-test.md
+        allowed_tools: [Bash, Read, Write, Edit, Glob, Grep]
+
+  - name: lead-merge
+    triggers:
+      - on: github:issue_comment:created
+        when:
+          comment.body:
+            contains: /lead-merge
+    steps:
+      - name: merge
+        prompt: prompts/lead-merge.md
+        allowed_tools: [Bash, Read]
+
+  # Fires on any closed issue whose body references a parent ("Part of #").
+  # The workflow checks whether all sibling sub-issues are closed and, if
+  # so, pings the human PO on the parent. Filter narrows to Plover-Baby
+  # sub-issues so we don't fire on every closed issue in the repo.
+  - name: lead-wrap-up
+    triggers:
+      - on: github:issues:closed
+        when:
+          issue.body:
+            contains: "Part of #"
+    steps:
+      - name: wrap-up
+        prompt: prompts/lead-wrap-up.md
+        allowed_tools: [Bash, Read]

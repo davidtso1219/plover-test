@@ -4,10 +4,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "register": "bun run register.ts register"
+    "register": "starling register --config config.yaml"
   },
   "dependencies": {
-    "hono": "^4.12.18"
+    "@starling/client": "file:../../starling/packages/client"
   },
   "devDependencies": {
     "@types/bun": "latest",
